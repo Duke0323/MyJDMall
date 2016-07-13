@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="bot_text_color_selected">#e90707</color>
+    <color name="bot_text_color_normal">#1a1919</color>
+    <color name="jd_welcome_bg">#8b2c2c</color>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyJDMall</string>
+    <string name="frag_main">首页</string>
+    <string name="frag_category">分类</string>
+    <string name="frag_shopcar">购物车</string>
+    <string name="frag_mine">我的京东</string>
+</resources>
