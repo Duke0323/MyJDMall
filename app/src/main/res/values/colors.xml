@@ -6,4 +6,8 @@
     <color name="bot_text_color_selected">#e90707</color>
     <color name="bot_text_color_normal">#1a1919</color>
     <color name="jd_welcome_bg">#8b2c2c</color>
+    <color name="choose_indicator_nor_selected">#ed0a0a</color>
+    <color name="choose_indicator_nor">#c2b1b1</color>
+    <color name="choose_jd_service_selected">#af19c3</color>
+    <color name="choose_jd_service_nor">#c2b1b1</color>
 </resources>
