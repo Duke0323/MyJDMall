@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,7 @@ import io.github.duke0323.myjdmall.utils.ActivityUtils;
 /**
  * Created by ${Duke} on 2016/7/11.
  */
-public class MIneFragment extends Fragment implements IModelChangeListener, View.OnClickListener {
+public class MIneFragment extends BaseFragemnt implements IModelChangeListener, View.OnClickListener {
     private CircleImageView mUserIconIv;
     private TextView mUserNameTv;
     private TextView mUserLevelTv;

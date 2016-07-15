@@ -5,22 +5,9 @@ package io.github.duke0323.myjdmall.bean;
  */
 public class LoginResultBean {
 
-    /**
-     * errorMsg :
-     * result : {"id":1,"userIcon":"/img/user/1.jpg","userLevel":1,"userName":"2","waitPayCount":86,"waitReceiveCount":0}
-     * success : true
-     */
+
 
     private String errorMsg;
-    /**
-     * id : 1
-     * userIcon : /img/user/1.jpg
-     * userLevel : 1
-     * userName : 2
-     * waitPayCount : 86
-     * waitReceiveCount : 0
-     */
-
     private String result;
     private boolean success;
 

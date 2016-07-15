@@ -9,26 +9,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 网络请求
  * Created by ${Duke} on 2016/7/10.
  */
 public class HttpUtils {
 
-    public static String doGet(String urlPath) {
-        try {
-            URL url = new URL(urlPath);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            if (conn.getResponseCode() == 200) {
-                InputStream inputStream = conn.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String s = reader.readLine();
-                return s;
+//    public static String doGet(String urlPath) {
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        Request request = new Request.Builder().get()
+//                .url(urlPath).build();
+//        try {
+//            Response response = okHttpClient.newCall(request).execute();
+//            if (response.isSuccessful()) {
+//                return response.body().toString();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
+
+        public static String doGet(String urlPath) {
+            try {
+                URL url = new URL(urlPath);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                if (conn.getResponseCode() == 200) {
+                    InputStream inputStream = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                    String s = reader.readLine();
+                    return s;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return "";
         }
-        return "";
-    }
 
     public static String doPost(String urlPath, HashMap<String, String> params) {
         try {

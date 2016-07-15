@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import io.github.duke0323.myjdmall.R;
 
 /**
- * Created by ${Duke} on 2016/7/11.
+ * Created by ${Duke} on 2016/7/15.
  */
-public class ShopCarFragment extends BaseFragemnt {
+public class ProductDetailFragment extends BaseFragemnt {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_shopcar,null);
+        return inflater.inflate(R.layout.fragment_product_detail, null);
     }
+
+
 }

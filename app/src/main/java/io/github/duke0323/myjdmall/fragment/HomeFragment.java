@@ -1,15 +1,16 @@
 package io.github.duke0323.myjdmall.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ import java.util.TimerTask;
 
 import io.github.duke0323.myjdmall.Controller.HomeController;
 import io.github.duke0323.myjdmall.R;
+import io.github.duke0323.myjdmall.activity.ProductDetailActivity;
 import io.github.duke0323.myjdmall.adapter.AdsAdapter;
 import io.github.duke0323.myjdmall.adapter.RecommendAdapter;
 import io.github.duke0323.myjdmall.adapter.SecKillAdapter;
@@ -35,6 +37,7 @@ import io.github.duke0323.myjdmall.bean.RecoBean;
 import io.github.duke0323.myjdmall.bean.SecKillBean;
 import io.github.duke0323.myjdmall.config.HttpConst;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
+import io.github.duke0323.myjdmall.config.IntentValues;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 import io.github.duke0323.myjdmall.ui.HorizontalListView;
 import io.github.duke0323.myjdmall.utils.FixedViewUtil;
@@ -43,7 +46,7 @@ import io.github.duke0323.myjdmall.utils.FixedViewUtil;
  * 首页
  * Created by ${Duke} on 2016/7/11.
  */
-public class HomeFragment extends Fragment implements IModelChangeListener {
+public class HomeFragment extends BaseFragemnt implements IModelChangeListener {
     private ImageView mScanIv;
     private EditText mSearchEt;
     private ImageView mMessageIv;
@@ -60,6 +63,9 @@ public class HomeFragment extends Fragment implements IModelChangeListener {
     private GridView mRecommendGv;
     private HomeController mController;
     private RecommendAdapter mRecommendAdapter;
+    private AdsAdapter mAdsAdapter;
+    private Timer mTimer;
+    private SecKillAdapter mTSecKillAdapter;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -100,7 +106,7 @@ public class HomeFragment extends Fragment implements IModelChangeListener {
 
     }
 
-    private SecKillAdapter mTSecKillAdapter;
+
 
     private void handleADs2(List<AdsResultBean> obj) {
         if (obj.size() > 0) {
@@ -113,8 +119,6 @@ public class HomeFragment extends Fragment implements IModelChangeListener {
 
     }
 
-    private AdsAdapter mAdsAdapter;
-    private Timer mTimer;
 
     private void handleAds(final List<AdsResultBean> obj) {
         if (obj.size() > 0) {
@@ -194,8 +198,24 @@ public class HomeFragment extends Fragment implements IModelChangeListener {
         //        mAdVp.setAdapter(mAdsAdapter);
         mTSecKillAdapter = new SecKillAdapter(getContext());
         mHorizonListview.setAdapter(mTSecKillAdapter);
+        mHorizonListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+                intent.putExtra(IntentValues.DETAILID, mTSecKillAdapter.getItemId(position));
+                startActivity(intent);
+            }
+        });
         mRecommendAdapter = new RecommendAdapter(getContext());
         mRecommendGv.setAdapter(mRecommendAdapter);
+        mRecommendGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+                intent.putExtra(IntentValues.DETAILID, mRecommendAdapter.getItemId(position));
+                startActivity(intent);
+            }
+        });
     }
 
     private void initController() {
@@ -222,6 +242,7 @@ public class HomeFragment extends Fragment implements IModelChangeListener {
         mSeckillTv = (TextView) getActivity().findViewById(R.id.seckill_tv);
         mHorizonListview = (HorizontalListView) getActivity().findViewById(R.id.horizon_listview);
         mRecommendGv = (GridView) getActivity().findViewById(R.id.recommend_gv);
+
     }
     @Override
     public void onModelChange(int action, Object... values) {

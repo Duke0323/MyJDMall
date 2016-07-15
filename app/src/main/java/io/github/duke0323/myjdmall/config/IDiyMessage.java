@@ -26,4 +26,8 @@ public class IDiyMessage {
     public static final int CATEGORY_TOP_ACTION_RESULT = 20;
     public static final int CATEGORY_SUB_ACTION = 21;
     public static final int CATEGORY_SUB_ACTION_RESULT = 22;
+    public static final int BRAND_ACTION = 23;
+    public static final int BRAND_ACTION_RESULT = 24;
+    public static final int PRODUCT_LIST_ACTION = 25;
+    public static final int PRODUCT_LIST_ACTION_RESULT = 26;
 }

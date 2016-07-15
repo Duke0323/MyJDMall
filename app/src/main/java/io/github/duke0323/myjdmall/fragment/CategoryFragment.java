@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import io.github.duke0323.myjdmall.ui.SubCategoryView;
  * 分类页面
  * Created by ${Duke} on 2016/7/11.
  */
-public class CategoryFragment extends Fragment implements IModelChangeListener, AdapterView.OnItemClickListener {
+public class CategoryFragment extends BaseFragemnt implements IModelChangeListener, AdapterView.OnItemClickListener {
     private EditText mSearchEt;
     private ListView mTopLv;
     private TopCategoryAdapter mTopCategoryAdapter;

@@ -15,7 +15,7 @@ import io.github.duke0323.myjdmall.bean.CategoryBean;
  * Created by ${Duke} on 2016/7/13.
  */
 public class TopCategoryAdapter extends JDBaseAdapter<CategoryBean> {
-    public int mTabPosition=-1;
+    public int mTabPosition = -1;
     Context mContext;
     private final LayoutInflater mInflater;
 
@@ -42,7 +42,7 @@ public class TopCategoryAdapter extends JDBaseAdapter<CategoryBean> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        viewHolder holder=null;
+        viewHolder holder = null;
         if (convertView != null) {
             holder = (viewHolder) convertView.getTag();
         } else {
@@ -56,11 +56,11 @@ public class TopCategoryAdapter extends JDBaseAdapter<CategoryBean> {
         CategoryBean categoryBean = mDatas.get(position);
         holder.tv.setText(categoryBean.getName());
         holder.divider.setVisibility((mTabPosition == position) ? View.INVISIBLE : View.VISIBLE);
-if(mTabPosition == position) {
-    holder.tv.setBackgroundResource(R.drawable.tongcheng_all_bg01);
-}else {
-    holder.tv.setBackgroundColor(Color.WHITE);
-}
+        if (mTabPosition == position) {
+            holder.tv.setBackgroundResource(R.drawable.tongcheng_all_bg01);
+        } else {
+            holder.tv.setBackgroundColor(Color.WHITE);
+        }
 
         return convertView;
     }

@@ -107,9 +107,12 @@ public class SubCategoryView extends ScrollView implements IViewContainer, IMode
             @Override
             public void onClick(View v) {
                 //跳入到商品详情
+                //三级分类id
                 int categoryid = categoryBean.getId();
                 Intent intent = new Intent(getContext(),ProductListActivity.class);
                 intent.putExtra(IntentValues.CATEGORYID,categoryid);
+                //一级分类id
+                intent.putExtra(IntentValues.TOPCATEGORYID,mBean.getId());
                 ((Activity)getContext()).startActivity(intent);
 
             }

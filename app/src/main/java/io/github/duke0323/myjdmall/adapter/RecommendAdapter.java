@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import io.github.duke0323.myjdmall.R;
 import io.github.duke0323.myjdmall.bean.RecoBean;
 import io.github.duke0323.myjdmall.config.HttpConst;
+import io.github.duke0323.myjdmall.utils.ViewHolder;
 
 /**
  * Created by ${Duke} on 2016/7/13.
@@ -27,30 +28,26 @@ public class RecommendAdapter extends JDBaseAdapter<RecoBean> {
         mInflater = LayoutInflater.from(mContext);
     }
 
-    class viewHolder {
-        ImageView image_iv;
-        TextView name_tv;
-        TextView price_tv;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        if(convertView==null) {
+            convertView = mInflater.inflate(R.layout.recommend_gv_item, parent,false);
+        }
+        ImageView image_iv= ViewHolder.get(convertView,R.id.image_iv);
+        TextView name_tv=  ViewHolder.get(convertView,R.id.name_tv);
+        TextView price_tv= ViewHolder.get(convertView,R.id.price_tv);
+
+        RecoBean recoBean = mDatas.get(position);
+        name_tv.setText(recoBean.getName());
+        price_tv.setText("￥" +String.valueOf(recoBean.getPrice()));
+        Picasso.with(mContext).load(HttpConst.DOMAIN + recoBean.getIconUrl())
+                .config(Bitmap.Config.RGB_565).into(image_iv);
+        return convertView;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        viewHolder holder;
-        if (convertView != null) {
-            holder = (viewHolder) convertView.getTag();
-        } else {
-            holder = new viewHolder();
-            convertView = mInflater.inflate(R.layout.recommend_gv_item, parent,false);
-            holder.image_iv = (ImageView) convertView.findViewById(R.id.image_iv);
-            holder.name_tv = (TextView) convertView.findViewById(R.id.name_tv);
-            holder.price_tv = (TextView) convertView.findViewById(R.id.price_tv);
-            convertView.setTag(holder);
-        }
-        RecoBean recoBean = mDatas.get(position);
-        holder.name_tv.setText(recoBean.getName());
-        holder.price_tv.setText("￥" +String.valueOf(recoBean.getPrice()));
-        Picasso.with(mContext).load(HttpConst.DOMAIN + recoBean.getIconUrl())
-                .config(Bitmap.Config.RGB_565).into(holder.image_iv);
-        return convertView;
+    public long getItemId(int position) {
+        return mDatas!=null?mDatas.get(position).getProductId():0;
     }
 }

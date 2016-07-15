@@ -4,8 +4,11 @@ package io.github.duke0323.myjdmall.config;
  * Created by ${Duke} on 2016/7/10.
  */
 public class HttpConst {
-
+    //互联网服务器
     //public static final String DOMAIN = "http://mall.520it.com";
+    //本机虚拟网服务器
+    //public static final String DOMAIN = "http://192.168.56.1:8080";
+    //本机服务器
     public static final String DOMAIN = "http://192.168.33.134:8080";
     public static final String LOGIN_URL = DOMAIN + "/login";
     public static final String SIGNUP_URL = DOMAIN + "/regist";
@@ -14,5 +17,7 @@ public class HttpConst {
     public static final String SECKILL_URL = DOMAIN + "/seckill";
     public static final String RECOMMEND_URL = DOMAIN + "/getYourFav";
     public static final String CATEGORY_URL = DOMAIN + "/category";
+    public static final String BRAND_URL = DOMAIN + "/brand";
+    public static final String SEARCHPRODUCT_LIST_URL = DOMAIN + "/searchProduct";
 
 }
