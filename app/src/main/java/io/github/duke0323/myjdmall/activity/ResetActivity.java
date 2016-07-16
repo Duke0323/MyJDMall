@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import io.github.duke0323.myjdmall.Controller.ResetController;
 import io.github.duke0323.myjdmall.R;
-import io.github.duke0323.myjdmall.bean.LoginResultBean;
+import io.github.duke0323.myjdmall.bean.RResultBean;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 
@@ -24,13 +24,13 @@ public class ResetActivity extends BaseActivity implements IModelChangeListener 
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case IDiyMessage.RESET_ACTION_RESULT:
-                    handleResetResult((LoginResultBean) msg.obj);
+                    handleResetResult((RResultBean) msg.obj);
                     break;
             }
         }
     };
 
-    private void handleResetResult(LoginResultBean obj) {
+    private void handleResetResult(RResultBean obj) {
         if(obj.isSuccess()) {
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
             finish();
@@ -60,7 +60,7 @@ public class ResetActivity extends BaseActivity implements IModelChangeListener 
 
     @Override
     public void onModelChange(int action, Object... values) {
-        LoginResultBean loginResultBean = (LoginResultBean) values[0];
-        handler.obtainMessage(action, loginResultBean).sendToTarget();
+        RResultBean rResultBean = (RResultBean) values[0];
+        handler.obtainMessage(action, rResultBean).sendToTarget();
     }
 }

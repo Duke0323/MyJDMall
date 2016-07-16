@@ -9,9 +9,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.duke0323.myjdmall.bean.AdsBean;
 import io.github.duke0323.myjdmall.bean.AdsResultBean;
-import io.github.duke0323.myjdmall.bean.LoginResultBean;
+import io.github.duke0323.myjdmall.bean.RResultBean;
 import io.github.duke0323.myjdmall.bean.RecoBean;
 import io.github.duke0323.myjdmall.bean.SecKillBean;
 import io.github.duke0323.myjdmall.config.HttpConst;
@@ -47,8 +46,8 @@ public class HomeController extends BaseController {
 
     private List loadRecomend() {
         List<RecoBean> secKill = new ArrayList<>();
-        String jsonStr = HttpUtils.doGet(HttpConst.RECOMMEND_URL);
-        LoginResultBean resultBean = JSON.parseObject(jsonStr, LoginResultBean.class);
+        String jsonStr = HttpUtils.getInstance().doGet(HttpConst.RECOMMEND_URL);
+        RResultBean resultBean = JSON.parseObject(jsonStr, RResultBean.class);
         if (resultBean.isSuccess()) {
             String result = resultBean.getResult();
             try {
@@ -65,8 +64,8 @@ public class HomeController extends BaseController {
 
     private List loadSecKill() {
         List<SecKillBean> secKill = new ArrayList<>();
-        String jsonStr = HttpUtils.doGet(HttpConst.SECKILL_URL);
-        LoginResultBean resultBean = JSON.parseObject(jsonStr, LoginResultBean.class);
+        String jsonStr = HttpUtils.getInstance().doGet(HttpConst.SECKILL_URL);
+        RResultBean resultBean = JSON.parseObject(jsonStr, RResultBean.class);
         if (resultBean.isSuccess()) {
             String result = resultBean.getResult();
             try {
@@ -85,10 +84,10 @@ public class HomeController extends BaseController {
 
     private List<AdsResultBean> loadAds(int type) {
         List<AdsResultBean> result = new ArrayList<>();
-        String jsonStr = HttpUtils.doGet(HttpConst.ADS_URL + "?adKind=" + type);
-        AdsBean adsBean = JSON.parseObject(jsonStr, AdsBean.class);
-        if (adsBean.isSuccess()) {
-            return JSON.parseArray(adsBean.getResult(), AdsResultBean.class);
+        String jsonStr = HttpUtils.getInstance().doGet(HttpConst.ADS_URL + "?adKind=" + type);
+        RResultBean bean = JSON.parseObject(jsonStr, RResultBean.class);
+        if (bean.isSuccess()) {
+            return JSON.parseArray(bean.getResult(), AdsResultBean.class);
         }
         return new ArrayList<AdsResultBean>();
     }

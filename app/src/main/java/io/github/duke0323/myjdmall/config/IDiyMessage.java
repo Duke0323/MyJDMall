@@ -30,4 +30,10 @@ public class IDiyMessage {
     public static final int BRAND_ACTION_RESULT = 24;
     public static final int PRODUCT_LIST_ACTION = 25;
     public static final int PRODUCT_LIST_ACTION_RESULT = 26;
+    public static final int PRODUCT_INFO_PIC_ACTION = 27;
+    public static final int PRODUCT_INFO_PIC_ACTION_RESULT = 28;
+    public static final int PRODUCT_POSITIVE_ACTION = 29;
+    public static final int PRODUCT_POSITIVE_ACTION_RESULT = 30;
+    public static final int COMMENT_COUNT_ACTION = 31;
+    public static final int COMMENT_COUNT_ACTION_RESULT = 32;
 }

@@ -19,5 +19,9 @@ public class HttpConst {
     public static final String CATEGORY_URL = DOMAIN + "/category";
     public static final String BRAND_URL = DOMAIN + "/brand";
     public static final String SEARCHPRODUCT_LIST_URL = DOMAIN + "/searchProduct";
+    public static final String PRODUCT_INFO_URL = DOMAIN + "/productInfo";
+    public static final String PRODUCT_COMMENT_URL = DOMAIN + "/productComment";
+    public static final String PRODUCT_DETAIL_URL = DOMAIN + "/productDetail";
+    public static final String COMMENT_COUNT_URL = DOMAIN + "/commentCount";
 
 }

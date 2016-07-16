@@ -4,9 +4,9 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-import io.github.duke0323.myjdmall.bean.LoginResultBean;
+import io.github.duke0323.myjdmall.bean.RResultBean;
 import io.github.duke0323.myjdmall.bean.UserBean;
 import io.github.duke0323.myjdmall.config.HttpConst;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
@@ -27,8 +27,8 @@ public class LoginController extends BaseController {
     protected void handlerMessage(int action, Object... values) {
         switch (action) {
             case IDiyMessage.LOGIN_ACTION:
-                LoginResultBean loginResultBean = login((String) values[0], (String) values[1]);
-                mListener.onModelChange(IDiyMessage.LOGIN_ACTION_RESULT, loginResultBean);
+                RResultBean rResultBean = login((String) values[0], (String) values[1]);
+                mListener.onModelChange(IDiyMessage.LOGIN_ACTION_RESULT, rResultBean);
                 break;
             case IDiyMessage.SAVE_ACTION:
                 mListener.onModelChange(IDiyMessage.SAVE_ACTION_RESULT, getSave());
@@ -45,13 +45,13 @@ public class LoginController extends BaseController {
     }
 
 
-    private LoginResultBean login(String name, String pwd) {
-        HashMap<String, String> params = new HashMap<>();
+    private RResultBean login(String name, String pwd) {
+        LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("username", name);
         params.put("pwd", pwd);
         //登录
-        String result = HttpUtils.doPost(HttpConst.LOGIN_URL, params);
-        return JSON.parseObject(result, LoginResultBean.class);
+        String result = HttpUtils.getInstance().doPost(HttpConst.LOGIN_URL, params);
+        return JSON.parseObject(result, RResultBean.class);
 
     }
 

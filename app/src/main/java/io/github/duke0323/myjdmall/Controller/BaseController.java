@@ -27,7 +27,6 @@ public abstract class BaseController {
                 handlerMessage(action, values);
             }
         }.start();
-
     }
 
     protected abstract void handlerMessage(int action, Object... values);

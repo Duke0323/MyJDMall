@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import io.github.duke0323.myjdmall.bean.SignUpBean;
 import io.github.duke0323.myjdmall.config.HttpConst;
@@ -28,10 +28,10 @@ public class SignUpController extends BaseController {
     }
 
     private SignUpBean signUp(String name, String pwd) {
-        HashMap<String, String> params = new HashMap<>();
+        LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("username", name);
         params.put("pwd", pwd);
-        String result = HttpUtils.doPost(HttpConst.SIGNUP_URL, params);
+        String result = HttpUtils.getInstance().doPost(HttpConst.SIGNUP_URL, params);
         return JSON.parseObject(result, SignUpBean.class);
 
     }

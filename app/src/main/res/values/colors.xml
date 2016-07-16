@@ -10,4 +10,6 @@
     <color name="choose_indicator_nor">#c2b1b1</color>
     <color name="choose_jd_service_selected">#af19c3</color>
     <color name="choose_jd_service_nor">#c2b1b1</color>
+    <color name="comment_titile_txt_selected">#de0a74</color>
+    <color name="comment_titile_txt_normal">#ccf918</color>
 </resources>

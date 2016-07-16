@@ -1,5 +1,6 @@
 package io.github.duke0323.myjdmall.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import io.github.duke0323.myjdmall.R;
+import io.github.duke0323.myjdmall.config.IntentValues;
 import io.github.duke0323.myjdmall.fragment.BaseFragemnt;
 import io.github.duke0323.myjdmall.fragment.ProductCommentFragment;
 import io.github.duke0323.myjdmall.fragment.ProductDetailFragment;
@@ -29,12 +32,27 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private android.widget.ImageView moreiv;
     private android.support.v4.view.ViewPager vp;
     private ProductAdapter mProductAdapter;
+    public long mDetailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        initPassValues();
         initView();
+
+    }
+
+    private void initPassValues() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            mDetailId = intent.getLongExtra(IntentValues.DETAILID, 0);
+        }
+        if (mDetailId == 0) {
+            Toast.makeText(this, "详情ID错误", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
     }
 
     private void initView() {
@@ -88,6 +106,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         public ProductAdapter(FragmentManager fm) {
             super(fm);
+//            ProductIntroduceFragment productIntroduceFragment =  new ProductIntroduceFragment();
+//            Bundle introduceBundle = new Bundle();
+//            introduceBundle.putLong(IntentValues.DETAILID,mDetailId);
+//            productIntroduceFragment.setArguments(introduceBundle);
             mFragment.add(new ProductIntroduceFragment());
             mFragment.add(new ProductDetailFragment());
             mFragment.add(new ProductCommentFragment());

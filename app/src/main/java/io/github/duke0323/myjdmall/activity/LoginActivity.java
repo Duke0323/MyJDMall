@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSON;
 import io.github.duke0323.myjdmall.Controller.LoginController;
 import io.github.duke0323.myjdmall.JDApplication;
 import io.github.duke0323.myjdmall.R;
-import io.github.duke0323.myjdmall.bean.LoginResultBean;
+import io.github.duke0323.myjdmall.bean.RResultBean;
 import io.github.duke0323.myjdmall.bean.RLogin;
 import io.github.duke0323.myjdmall.bean.UserBean;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity implements IModelChangeListener 
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case IDiyMessage.LOGIN_ACTION_RESULT:
-                    handleLoginResult((LoginResultBean) msg.obj);
+                    handleLoginResult((RResultBean) msg.obj);
                     break;
                 case IDiyMessage.SAVE_ACTION_RESULT:
                     handleLodingLoginSave(msg.obj);
@@ -54,7 +54,7 @@ public class LoginActivity extends BaseActivity implements IModelChangeListener 
         }
     }
 
-    private void handleLoginResult(LoginResultBean obj) {
+    private void handleLoginResult(RResultBean obj) {
         if (!obj.isSuccess()) {
             Toast.makeText(this, obj.getErrorMsg(), Toast.LENGTH_SHORT).show();
             return;
@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity implements IModelChangeListener 
 
     @Override
     public void onModelChange(int action, Object... values) {
-        //LoginResultBean loginResultBean = (LoginResultBean) values[0];
+        //RResultBean loginResultBean = (RResultBean) values[0];
         handler.obtainMessage(action, values[0]).sendToTarget();
     }
 }
