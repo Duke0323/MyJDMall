@@ -1,7 +1,9 @@
 package io.github.duke0323.myjdmall.Controller;
 
+import android.app.Activity;
 import android.content.Context;
 
+import io.github.duke0323.myjdmall.JDApplication;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 
 /**
@@ -9,11 +11,15 @@ import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
  */
 public abstract class BaseController {
     protected IModelChangeListener mListener;
-
+    protected String mId = null;
     protected Context context;
 
     public BaseController(Context context) {
         this.context = context;
+        JDApplication application = (JDApplication) ((Activity) context).getApplication();
+        if(application.mUserInfo!=null) {
+            mId = application.mUserInfo.getId();
+        }
     }
 
 

@@ -5,11 +5,11 @@ package io.github.duke0323.myjdmall.config;
  */
 public class HttpConst {
     //互联网服务器
-    //public static final String DOMAIN = "http://mall.520it.com";
+    public static final String DOMAIN = "http://mall.520it.com";
     //本机虚拟网服务器
     //public static final String DOMAIN = "http://192.168.56.1:8080";
     //本机服务器
-    public static final String DOMAIN = "http://192.168.33.134:8080";
+    //public static final String DOMAIN = "http://192.168.33.134:8080";
     public static final String LOGIN_URL = DOMAIN + "/login";
     public static final String SIGNUP_URL = DOMAIN + "/regist";
     public static final String RESET_URL = DOMAIN + "/reset";
@@ -23,5 +23,13 @@ public class HttpConst {
     public static final String PRODUCT_COMMENT_URL = DOMAIN + "/productComment";
     public static final String PRODUCT_DETAIL_URL = DOMAIN + "/productDetail";
     public static final String COMMENT_COUNT_URL = DOMAIN + "/commentCount";
+    public static final String COMMENT_DETAIL_URL = DOMAIN + "/commentDetail";
+    public static final String TOSHOPCAR_URL = DOMAIN + "/toShopCar";
+    public static final String SHOPCAR_URL = DOMAIN + "/shopCar";
+    public static final String DELSHOPCAR_URL = DOMAIN + "/delShopCar";
+    public static final String RECEIVE_ADDRESS_URL = DOMAIN + "/receiveAddress";
+    public static final String PROVINCE_URL = DOMAIN + "/province";
+    public static final String CITY_URL = DOMAIN + "/city";
+    public static final String AREA_URL = DOMAIN + "/area";
 
 }

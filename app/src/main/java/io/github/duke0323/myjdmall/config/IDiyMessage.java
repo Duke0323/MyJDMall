@@ -36,4 +36,20 @@ public class IDiyMessage {
     public static final int PRODUCT_POSITIVE_ACTION_RESULT = 30;
     public static final int COMMENT_COUNT_ACTION = 31;
     public static final int COMMENT_COUNT_ACTION_RESULT = 32;
+    public static final int COMMENT_ALL_ACTION = 33;
+    public static final int COMMENT_ALL_ACTION_RESULT = 34;
+    public static final int TOSHOPCAR_ACTION = 35;
+    public static final int TOSHOPCAR_ACTION_RESULT = 36;
+    public static final int LOAD_SHOPCAR_ACTION = 37;
+    public static final int LOAD_SHOPCAR_ACTION_RESULT = 38;
+    public static final int DELETE_SHOPCAR_ACTION = 39;
+    public static final int DELETE_SHOPCAR_ACTION_RESULT = 40;
+    public static final int RECEIVE_ADDRESS_ACTION = 41;
+    public static final int RECEIVE_ADDRESS_ACTION_RESULT = 42;
+    public static final int GET_PROVINCE_ACTION = 43;
+    public static final int GET_PROVINCE_ACTION_RESULT = 44;
+    public static final int GET_CITY_ACTION = 45;
+    public static final int GET_CITY_ACTION_RESULT = 46;
+    public static final int GET_AREA_ACTION = 47;
+    public static final int GET_AREA_ACTION_RESULT = 48;
 }

@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.duke0323.myjdmall.Controller.ProductCommentController;
+import io.github.duke0323.myjdmall.Controller.ProductController;
 import io.github.duke0323.myjdmall.R;
 import io.github.duke0323.myjdmall.activity.ProductDetailActivity;
 import io.github.duke0323.myjdmall.adapter.PositiveCommentAdapter;
@@ -37,13 +37,14 @@ import io.github.duke0323.myjdmall.config.HttpConst;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 import io.github.duke0323.myjdmall.protocol.INumberInputListener;
+import io.github.duke0323.myjdmall.protocol.IPversionClickListener;
 import io.github.duke0323.myjdmall.ui.NumberInputView;
 import io.github.duke0323.myjdmall.utils.FixedViewUtil;
 
 /**
  * Created by ${Duke} on 2016/7/15.
  */
-public class ProductIntroduceFragment extends BaseFragemnt implements IModelChangeListener, INumberInputListener {
+public class ProductIntroduceFragment extends BaseFragemnt implements IModelChangeListener, INumberInputListener, IPversionClickListener {
     private ScrollView mScrollview;
     private ViewPager mAsvp;
     private TextView mVpIndicTv;
@@ -61,7 +62,7 @@ public class ProductIntroduceFragment extends BaseFragemnt implements IModelChan
     private TextView mScrollToTopIndic;
     private ImageAdapter mImageAdapter;
     private NumberInputView number_input_et;
-    private ProductCommentController mController;
+    private ProductController mController;
     private ProductVersionAdapter mProductVersionAdapter;
     private PositiveCommentAdapter mPositiveCommentAdapter;
     private Handler handler = new Handler() {
@@ -76,6 +77,8 @@ public class ProductIntroduceFragment extends BaseFragemnt implements IModelChan
             }
         }
     };
+    private ProductDetailActivity mActivity;
+
 
     private void handleComment(List<CommentBean> obj) {
         mPositiveCommentAdapter.setDatas(obj);
@@ -154,13 +157,13 @@ public class ProductIntroduceFragment extends BaseFragemnt implements IModelChan
 
 
     private void initController() {
-        mController = new ProductCommentController(getContext());
+        mController = new ProductController(getContext());
         mController.setListener(this);
-        ProductDetailActivity activity = (ProductDetailActivity) getActivity();
-        mController.sendAsyncMessage(IDiyMessage.PRODUCT_INFO_PIC_ACTION, activity.mDetailId);
+        mActivity = (ProductDetailActivity) getActivity();
+        mController.sendAsyncMessage(IDiyMessage.PRODUCT_INFO_PIC_ACTION, mActivity.mDetailId);
 
 
-        mController.sendAsyncMessage(IDiyMessage.PRODUCT_POSITIVE_ACTION, activity.mDetailId);
+        mController.sendAsyncMessage(IDiyMessage.PRODUCT_POSITIVE_ACTION, mActivity.mDetailId);
 
     }
 
@@ -183,8 +186,10 @@ public class ProductIntroduceFragment extends BaseFragemnt implements IModelChan
         mScrollToTopIndic = (TextView) getActivity().findViewById(R.id.scroll_to_top_indic);
         mImageAdapter = new ImageAdapter();
         mAsvp.setAdapter(mImageAdapter);
+
         mProductVersionAdapter = new ProductVersionAdapter(getActivity());
         mProductVersionsGv.setAdapter(mProductVersionAdapter);
+        mProductVersionAdapter.setListener(this);
         mPositiveCommentAdapter = new PositiveCommentAdapter(getContext());
         mGoodCommentLv.setAdapter(mPositiveCommentAdapter);
     }
@@ -196,7 +201,12 @@ public class ProductIntroduceFragment extends BaseFragemnt implements IModelChan
 
     @Override
     public void onTextChange(int i) {
+        mActivity.mBuyCount = i;
+    }
 
+    @Override
+    public void onVersionChange(String text) {
+        mActivity.mVersion = text;
     }
 
     public class ImageAdapter extends PagerAdapter {

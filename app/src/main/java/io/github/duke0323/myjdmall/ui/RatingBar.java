@@ -23,8 +23,13 @@ public class RatingBar extends LinearLayout {
 	 * max为 0
 	 */
 	public void setRating(int count){
-		for (int i = 0; i < count; i++) {
+		//getchildcount viewgroup 全部子控件设为默认
+		for (int i = 0; i < getChildCount(); i++) {
 			ImageView iv=(ImageView) getChildAt(i);
+			iv.setImageResource(R.drawable.start_normal);
+		}
+		for (int i = 0; i < count; i++) {
+			ImageView iv = (ImageView) getChildAt(i);
 			iv.setImageResource(R.drawable.start_selected);
 		}
 	}

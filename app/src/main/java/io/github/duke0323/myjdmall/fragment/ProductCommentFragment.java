@@ -11,10 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import io.github.duke0323.myjdmall.Controller.ProductCommentController;
+import java.util.List;
+
+import io.github.duke0323.myjdmall.Controller.ProductController;
 import io.github.duke0323.myjdmall.R;
 import io.github.duke0323.myjdmall.activity.ProductDetailActivity;
+import io.github.duke0323.myjdmall.adapter.CommentAdapter;
 import io.github.duke0323.myjdmall.bean.CommentCountBean;
+import io.github.duke0323.myjdmall.bean.CommentDetailBean;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 
@@ -38,16 +42,37 @@ public class ProductCommentFragment extends BaseFragemnt implements View.OnClick
     private TextView mHasImageCommentTip;
     private TextView mHasImageCommentTv;
     private ListView mLv;
-    private ProductCommentController mProductCommentController;
+    public static final int ALL_COMMENT = 0;
+    public static final int POSITIVE_COMMENT = 1;
+    public static final int MODERATE_COMMENT = 2;
+    public static final int NEGATIVE_COMMENT = 3;
+    public static final int HASIMAGE_COMMENT = 4;
+    private CommentAdapter mCommentAdapter;
+    private ProductController mProductController;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case IDiyMessage.COMMENT_COUNT_ACTION_RESULT:
                     handleCommentCount((CommentCountBean) msg.obj);
                     break;
+                case IDiyMessage.COMMENT_ALL_ACTION_RESULT:
+                    handleALLCommentCount((List<CommentDetailBean>) msg.obj);
+                    break;
             }
         }
     };
+    private long mDetailId;
+
+    private void handleALLCommentCount(List<CommentDetailBean> obj) {
+        if (obj != null) {
+            mCommentAdapter.setDatas(obj);
+            mCommentAdapter.notifyDataSetChanged();
+
+        }
+
+
+    }
+
 
     private void handleCommentCount(CommentCountBean obj) {
         if (obj != null) {
@@ -71,12 +96,16 @@ public class ProductCommentFragment extends BaseFragemnt implements View.OnClick
         initController();
         assignViews();
         ProductDetailActivity activity = (ProductDetailActivity) getActivity();
-        mProductCommentController.sendAsyncMessage(IDiyMessage.COMMENT_COUNT_ACTION, activity.mDetailId);
+        mDetailId = activity.mDetailId;
+        mProductController.sendAsyncMessage(IDiyMessage.COMMENT_COUNT_ACTION, mDetailId);
+
+        mProductController.sendAsyncMessage(IDiyMessage.COMMENT_ALL_ACTION, mDetailId, ALL_COMMENT);
+
     }
 
     private void initController() {
-        mProductCommentController = new ProductCommentController(getContext());
-        mProductCommentController.setListener(this);
+        mProductController = new ProductController(getContext());
+        mProductController.setListener(this);
     }
 
 
@@ -96,7 +125,12 @@ public class ProductCommentFragment extends BaseFragemnt implements View.OnClick
         mHasImageCommentLl = (LinearLayout) getActivity().findViewById(R.id.has_image_comment_ll);
         mHasImageCommentTip = (TextView) getActivity().findViewById(R.id.has_image_comment_tip);
         mHasImageCommentTv = (TextView) getActivity().findViewById(R.id.has_image_comment_tv);
+
         mLv = (ListView) getActivity().findViewById(R.id.lv);
+        mCommentAdapter = new CommentAdapter(getContext());
+        mLv.setAdapter(mCommentAdapter);
+
+
         mAllCommentLl.setOnClickListener(this);
         mPositiveCommentLl.setOnClickListener(this);
         mCenterCommentLl.setOnClickListener(this);
@@ -124,26 +158,36 @@ public class ProductCommentFragment extends BaseFragemnt implements View.OnClick
                 defaultStyle();
                 mAllCommentTip.setSelected(true);
                 mAllCommentTv.setSelected(true);
+                mProductController.sendAsyncMessage(IDiyMessage.COMMENT_ALL_ACTION, mDetailId, ALL_COMMENT);
+
                 break;
             case R.id.positive_comment_ll:
                 defaultStyle();
                 mPositiveCommentTip.setSelected(true);
                 mPositiveCommentTv.setSelected(true);
+                mProductController.sendAsyncMessage(IDiyMessage.COMMENT_ALL_ACTION, mDetailId, POSITIVE_COMMENT);
+
                 break;
             case R.id.center_comment_ll:
                 defaultStyle();
                 mCenterCommentTip.setSelected(true);
                 mCenterCommentTv.setSelected(true);
+                mProductController.sendAsyncMessage(IDiyMessage.COMMENT_ALL_ACTION, mDetailId, MODERATE_COMMENT);
+
                 break;
             case R.id.negative_comment_ll:
                 defaultStyle();
                 mNagetiveCommentTip.setSelected(true);
                 mNagetiveCommentTv.setSelected(true);
+                mProductController.sendAsyncMessage(IDiyMessage.COMMENT_ALL_ACTION, mDetailId, NEGATIVE_COMMENT);
+
                 break;
             case R.id.has_image_comment_ll:
                 defaultStyle();
                 mHasImageCommentTip.setSelected(true);
                 mHasImageCommentTv.setSelected(true);
+                mProductController.sendAsyncMessage(IDiyMessage.COMMENT_ALL_ACTION, mDetailId, HASIMAGE_COMMENT);
+
                 break;
         }
     }

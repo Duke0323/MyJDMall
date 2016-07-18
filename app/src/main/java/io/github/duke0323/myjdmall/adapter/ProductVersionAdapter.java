@@ -7,20 +7,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import io.github.duke0323.myjdmall.R;
+import io.github.duke0323.myjdmall.protocol.IPversionClickListener;
 import io.github.duke0323.myjdmall.utils.ViewHolder;
 
 /**
  * Created by ${Duke} on 2016/7/16.
  */
-public class ProductVersionAdapter extends JDBaseAdapter<String>{
+public class ProductVersionAdapter extends JDBaseAdapter<String> {
     public int mTabPosition = -1;
     Context mContext;
     private final LayoutInflater mInflater;
 
+    private IPversionClickListener mListener;
 
     public ProductVersionAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
+    }
+
+    public void setListener(IPversionClickListener listener) {
+        mListener = listener;
     }
 
     @Override
@@ -37,6 +43,9 @@ public class ProductVersionAdapter extends JDBaseAdapter<String>{
             public void onClick(View v) {
                 mTabPosition = position;
                 notifyDataSetChanged();
+                if(mListener!=null) {
+                    mListener.onVersionChange(mDatas.get(position));
+                }
             }
         });
         brandBtn.setSelected(mTabPosition == position);
@@ -45,7 +54,7 @@ public class ProductVersionAdapter extends JDBaseAdapter<String>{
 
     @Override
     public Object getItem(int position) {
-        return mDatas!=null?mDatas.get(position):null;
+        return mDatas != null ? mDatas.get(position) : null;
     }
 
 

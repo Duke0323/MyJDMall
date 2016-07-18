@@ -10,7 +10,7 @@ public interface IPopWindowProtocol {
 
     void onShow(View anchorView);
 
-    void dismiss();
+    void onDismiss();
 
 
 }

@@ -20,7 +20,7 @@ import io.github.duke0323.myjdmall.protocol.IProductSortPopListener;
  * Created by ${Duke} on 2016/7/14.
  */
 public class ProductSortPopWindow implements IPopWindowProtocol, View.OnClickListener {
-    Context mContext;
+         Context mContext;
     PopupWindow mPopWindow;
     private android.widget.TextView allsort;
     private android.widget.TextView newsort;
@@ -68,15 +68,16 @@ public class ProductSortPopWindow implements IPopWindowProtocol, View.OnClickLis
     }
 
     @Override
-    public void dismiss() {
+    public void onDismiss() {
         if (mPopWindow != null && mPopWindow.isShowing()) {
             mPopWindow.dismiss();
         }
     }
 
+
     @Override
     public void onClick(View v) {
-        dismiss();
+        onDismiss();
         switch (v.getId()) {
             case R.id.comment_sort:
                 if (mOnSortChangedListener != null) {

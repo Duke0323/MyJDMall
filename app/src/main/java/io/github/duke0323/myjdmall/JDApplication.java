@@ -11,8 +11,6 @@ public class JDApplication extends Application {
     //全局成员变量
     public  RLogin mUserInfo;
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();

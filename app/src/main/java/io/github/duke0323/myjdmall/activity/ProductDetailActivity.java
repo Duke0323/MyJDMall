@@ -2,6 +2,8 @@ package io.github.duke0323.myjdmall.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,14 +16,18 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import io.github.duke0323.myjdmall.Controller.ProductController;
 import io.github.duke0323.myjdmall.R;
+import io.github.duke0323.myjdmall.bean.RResultBean;
+import io.github.duke0323.myjdmall.config.IDiyMessage;
 import io.github.duke0323.myjdmall.config.IntentValues;
 import io.github.duke0323.myjdmall.fragment.BaseFragemnt;
 import io.github.duke0323.myjdmall.fragment.ProductCommentFragment;
 import io.github.duke0323.myjdmall.fragment.ProductDetailFragment;
 import io.github.duke0323.myjdmall.fragment.ProductIntroduceFragment;
+import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 
-public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener, IModelChangeListener {
 
     private android.view.View detailsview;
     private android.widget.LinearLayout detailsll;
@@ -32,15 +38,39 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private android.widget.ImageView moreiv;
     private android.support.v4.view.ViewPager vp;
     private ProductAdapter mProductAdapter;
-    public long mDetailId;
+    public long mDetailId;//商品id
+    public int mBuyCount = 1;//购买数量
+    public String mVersion = "";//版本信息
+    private ProductController mController;
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case IDiyMessage.TOSHOPCAR_ACTION_RESULT:
+                    handleToShopCar((RResultBean) msg.obj);
+                    break;
+            }
+        }
+    };
+
+    private void handleToShopCar(RResultBean obj) {
+        String tip = "";
+        tip = obj.isSuccess() ? "已添加到购物车" : "系统错误" + obj.getErrorMsg();
+        Toast.makeText(this, tip, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        initController();
         initPassValues();
         initView();
 
+    }
+
+    private void initController() {
+        mController = new ProductController(this);
+        mController.setListener(this);
     }
 
     private void initPassValues() {
@@ -100,16 +130,35 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    public void add2ShopCar(View view) {
+        if (mBuyCount <= 0) {
+            Toast.makeText(this, "请选择正确数量", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mVersion.equals("")) {
+            Toast.makeText(this, "请选择正确的版本", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mController.sendAsyncMessage(IDiyMessage.TOSHOPCAR_ACTION, mDetailId, mBuyCount, mVersion);
+
+    }
+
+    @Override
+    public void onModelChange(int action, Object... values) {
+        handler.obtainMessage(action, values[0]).sendToTarget();
+    }
+
     public class ProductAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragemnt> mFragment = new ArrayList<>();
 
         public ProductAdapter(FragmentManager fm) {
             super(fm);
-//            ProductIntroduceFragment productIntroduceFragment =  new ProductIntroduceFragment();
-//            Bundle introduceBundle = new Bundle();
-//            introduceBundle.putLong(IntentValues.DETAILID,mDetailId);
-//            productIntroduceFragment.setArguments(introduceBundle);
+            //            ProductIntroduceFragment productIntroduceFragment =  new ProductIntroduceFragment();
+            //            Bundle introduceBundle = new Bundle();
+            //            introduceBundle.putLong(IntentValues.DETAILID,mDetailId);
+            //            productIntroduceFragment.setArguments(introduceBundle);
             mFragment.add(new ProductIntroduceFragment());
             mFragment.add(new ProductDetailFragment());
             mFragment.add(new ProductCommentFragment());
