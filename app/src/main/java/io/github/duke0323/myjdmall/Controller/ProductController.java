@@ -78,6 +78,7 @@ public class ProductController extends BaseController {
         if (rResultBean.isSuccess()) {
             if (BuildConfig.DEBUG)
                 Log.d("ProductCommentControlle", rResultBean.getResult());
+
             return JSON.parseArray(rResultBean.getResult(), CommentDetailBean.class);
         }
         return new ArrayList<>();

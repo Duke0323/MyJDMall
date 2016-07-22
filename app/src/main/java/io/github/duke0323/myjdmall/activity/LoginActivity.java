@@ -20,6 +20,7 @@ import io.github.duke0323.myjdmall.bean.UserBean;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
 import io.github.duke0323.myjdmall.db.UserDao;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
+import io.github.duke0323.myjdmall.ui.LoadingDialog;
 import io.github.duke0323.myjdmall.utils.AESUtils;
 import io.github.duke0323.myjdmall.utils.ActivityUtils;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends BaseActivity implements IModelChangeListener 
             }
         }
     };
+    private LoadingDialog mDialog;
 
     private void handleLodingLoginSave(Object obj) {
         if (obj != null && obj instanceof UserBean) {
@@ -65,6 +67,7 @@ public class LoginActivity extends BaseActivity implements IModelChangeListener 
         saveNameAndPwd();
         //保存到全局变量
         ((JDApplication) getApplication()).mUserInfo = userInfo;
+        mDialog.dismiss();
         ActivityUtils.start(LoginActivity.this, MainActivity.class, true);
     }
 
@@ -88,6 +91,7 @@ public class LoginActivity extends BaseActivity implements IModelChangeListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mDialog = new LoadingDialog(this, R.style.CustomDialog);
         this.pwdet = (EditText) findViewById(R.id.pwd_et);
         this.nameet = (EditText) findViewById(R.id.name_et);
         this.titlev = (TextView) findViewById(R.id.title_v);
@@ -115,6 +119,7 @@ public class LoginActivity extends BaseActivity implements IModelChangeListener 
             return;
         }
         //网络请求
+       mDialog.show();
         mController.sendAsyncMessage(IDiyMessage.LOGIN_ACTION, name, pwd);
         ActivityUtils.start(LoginActivity.this, MainActivity.class, true);
     }

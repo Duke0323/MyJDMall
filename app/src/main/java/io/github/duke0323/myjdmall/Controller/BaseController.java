@@ -2,7 +2,9 @@ package io.github.duke0323.myjdmall.Controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
+import io.github.duke0323.myjdmall.BuildConfig;
 import io.github.duke0323.myjdmall.JDApplication;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 
@@ -19,6 +21,8 @@ public abstract class BaseController {
         JDApplication application = (JDApplication) ((Activity) context).getApplication();
         if(application.mUserInfo!=null) {
             mId = application.mUserInfo.getId();
+            if (BuildConfig.DEBUG)
+                Log.d("BaseControllermId", mId);
         }
     }
 

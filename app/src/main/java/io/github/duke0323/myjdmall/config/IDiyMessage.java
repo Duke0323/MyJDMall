@@ -52,4 +52,22 @@ public class IDiyMessage {
     public static final int GET_CITY_ACTION_RESULT = 46;
     public static final int GET_AREA_ACTION = 47;
     public static final int GET_AREA_ACTION_RESULT = 48;
+    public static final int ADD_ADDRESS_ACTION = 49;
+    public static final int ADD_ADDRESS_ACTION_RESULT = 50;
+    public static final int CHOOOSE_ADDRESS_ACTION = 51;
+    public static final int CHOOOSE_ADDRESS_ACTION_RESULT = 52;
+    public static final int DELETE_ADDRESS_ACTION = 53;
+    public static final int DELETE_ADDRESS_ACTION_RESULT = 54;
+    public static final int ADD_ORDER_ACTION = 55;
+    public static final int ADD_ORDER_ACTION_RESULT = 56;
+    public static final int ALIPAY_ACTION = 57;
+    public static final int ALIPAY_ACTION_RESULT = 58;
+    public static final int PAY_ACTION = 59;
+    public static final int PAY_ACTION_RESULT = 60;
+    public static final int GET_ORDER_ACTION = 61;
+    public static final int GET_ORDER_ACTION_RESULT = 62;
+    public static final int CONFIRM_ORDER_ACTION = 63;
+    public static final int CONFIRM_ORDER_ACTION_RESULT = 64;
+    public static final int CANCEL_ORDER_ACTION = 65;
+    public static final int CANCEL_ORDER_ACTION_RESULT = 66;
 }

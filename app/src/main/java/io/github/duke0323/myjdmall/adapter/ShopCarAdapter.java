@@ -84,6 +84,18 @@ public class ShopCarAdapter extends JDBaseAdapter<ShopListBean> {
         return result;
     }
 
+    //获取购物车商品列表到订单确认界面
+    public ArrayList<ShopListBean> getSelectItems(){
+        ArrayList<ShopListBean> Items = new ArrayList<>();
+        for (int i = 0; i <mSeletedItems.size() ; i++) {
+            if(mSeletedItems.get(i)) {
+                Items.add(mDatas.get(i));
+            }
+        }
+        return Items;
+    }
+
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

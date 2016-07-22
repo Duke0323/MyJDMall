@@ -13,6 +13,7 @@ import io.github.duke0323.myjdmall.utils.HttpUtils;
 
 /**
  * Created by ${Duke} on 2016/7/10.
+ *
  */
 public class SignUpController extends BaseController {
     public SignUpController(Context context) {

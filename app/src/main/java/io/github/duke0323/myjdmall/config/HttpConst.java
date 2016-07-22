@@ -31,5 +31,13 @@ public class HttpConst {
     public static final String PROVINCE_URL = DOMAIN + "/province";
     public static final String CITY_URL = DOMAIN + "/city";
     public static final String AREA_URL = DOMAIN + "/area";
+    public static final String ADDADDRESS_URL = DOMAIN + "/addAddress";
+    public static final String DELADDRESS_URL = DOMAIN + "/delAddress";
+    public static final String ADDORDER_URL = DOMAIN + "/addOrder";
+    public static final String GETPAYINFO_URL = DOMAIN + "/getPayInfo";
+    public static final String PAY_URL = DOMAIN + "/pay";
+    public static final String GETORDERBYSTATUS_URL = DOMAIN + "/getOrderByStatus";
+    public static final String CONFIRMORDER_URL = DOMAIN + "/confirmOrder";
+    public static final String CANCELORDER_URL = DOMAIN + "/cancelOrder";
 
 }

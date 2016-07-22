@@ -1,9 +1,12 @@
 package io.github.duke0323.myjdmall.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by ${Duke} on 2016/7/17.
  */
-public class ShopListBean {
+public class ShopListBean implements Parcelable {
     /*
            "id": 购物车明细id,
            "buyCount": 购买数,
@@ -15,6 +18,7 @@ public class ShopListBean {
            "stockCount": 库存,
            "storeId": 商店id,
            "pversion": "商品版本"*/
+
     private int id;
     private int buyCount;
     private String storeName;
@@ -121,4 +125,51 @@ public class ShopListBean {
     public void setPversion(String pversion) {
         this.pversion = pversion;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.buyCount);
+        dest.writeString(this.storeName);
+        dest.writeDouble(this.pprice);
+        dest.writeString(this.pimageUrl);
+        dest.writeString(this.pname);
+        dest.writeInt(this.pid);
+        dest.writeInt(this.stockCount);
+        dest.writeInt(this.storeId);
+        dest.writeString(this.pversion);
+    }
+
+    public ShopListBean() {
+    }
+
+    protected ShopListBean(Parcel in) {
+        this.id = in.readInt();
+        this.buyCount = in.readInt();
+        this.storeName = in.readString();
+        this.pprice = in.readDouble();
+        this.pimageUrl = in.readString();
+        this.pname = in.readString();
+        this.pid = in.readInt();
+        this.stockCount = in.readInt();
+        this.storeId = in.readInt();
+        this.pversion = in.readString();
+    }
+
+    public static final Parcelable.Creator<ShopListBean> CREATOR = new Parcelable.Creator<ShopListBean>() {
+        @Override
+        public ShopListBean createFromParcel(Parcel source) {
+            return new ShopListBean(source);
+        }
+
+        @Override
+        public ShopListBean[] newArray(int size) {
+            return new ShopListBean[size];
+        }
+    };
 }

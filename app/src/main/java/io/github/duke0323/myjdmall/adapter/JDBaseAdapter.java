@@ -4,6 +4,8 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
+import io.github.duke0323.myjdmall.fragment.WaitReceiverFragment;
+
 /**
  * Created by ${Duke} on 2016/7/13.
  */
@@ -28,4 +30,6 @@ public abstract  class JDBaseAdapter<T> extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
+
+
 }

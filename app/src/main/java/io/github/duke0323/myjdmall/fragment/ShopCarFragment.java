@@ -1,5 +1,6 @@
 package io.github.duke0323.myjdmall.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.github.duke0323.myjdmall.Controller.ShopCarController;
@@ -24,9 +26,9 @@ import io.github.duke0323.myjdmall.adapter.ShopCarAdapter;
 import io.github.duke0323.myjdmall.bean.RResultBean;
 import io.github.duke0323.myjdmall.bean.ShopListBean;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
+import io.github.duke0323.myjdmall.config.IntentValues;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 import io.github.duke0323.myjdmall.protocol.IShopCarDeleteListener;
-import io.github.duke0323.myjdmall.utils.ActivityUtils;
 
 /**
  * Created by ${Duke} on 2016/7/11.
@@ -61,7 +63,6 @@ public class ShopCarFragment extends BaseFragemnt implements IModelChangeListene
             mShopCarController.sendAsyncMessage(IDiyMessage.LOAD_SHOPCAR_ACTION, 0);
             mAllMoneyTv.setText(String.valueOf("总金额 ￥ 0.0"));
             mSettleTv.setText(String.valueOf("去结算(0)"));
-
         } else {
             Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
         }
@@ -145,6 +146,12 @@ public class ShopCarFragment extends BaseFragemnt implements IModelChangeListene
             Toast.makeText(getActivity(), "请选择商品再提交订单", Toast.LENGTH_SHORT).show();
             return;
         }
-        ActivityUtils.start(getActivity(), SettleActivity.class, false);
+        ArrayList<ShopListBean> selectItems = mShopCarAdapter.getSelectItems();
+
+        Intent intent = new Intent(getActivity(), SettleActivity.class);
+        intent.putExtra(IntentValues.PRODUCTTOTALPRICE, mShopCarAdapter.getSelectedTotalPrice());
+        intent.putExtra(IntentValues.SUBMITINFO, selectItems);
+
+        startActivity(intent);
     }
 }

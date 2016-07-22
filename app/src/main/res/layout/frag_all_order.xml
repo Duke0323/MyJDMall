@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <!--<include-->
+        <!--android:id="@+id/all_order_null_view"-->
+        <!--layout="@layout/null_view"-->
+        <!--android:visibility="gone"/>-->
+
+    <io.github.duke0323.myjdmall.ui.XListView
+        android:id="@+id/all_order_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:cacheColorHint="#0000"
+        android:divider="@null"
+        android:dividerHeight="8dp"
+        android:listSelector="#0000"
+        android:scrollbars="none"
+        />
+
+</LinearLayout>

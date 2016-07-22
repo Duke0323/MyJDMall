@@ -62,11 +62,11 @@ public class CategoryController extends BaseController {
         params.put("productId", String.valueOf(value));
         params.put("type", String.valueOf(1));
         String jsonStr = HttpUtils.getInstance().doPost(HttpConst.PRODUCT_COMMENT_URL, params);
+
         RResultBean rResultBean = JSON.parseObject(jsonStr, RResultBean.class);
         if (rResultBean.isSuccess()) {
             return JSON.parseArray(rResultBean.getResult(), CommentBean.class);
         }
-
         return new ArrayList<>();
     }
 

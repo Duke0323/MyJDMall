@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +26,7 @@ import io.github.duke0323.myjdmall.fragment.ProductDetailFragment;
 import io.github.duke0323.myjdmall.fragment.ProductIntroduceFragment;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
 
-public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener, IModelChangeListener {
+public class ProductDetailActivity extends BaseActivity implements View.OnClickListener, IModelChangeListener {
 
     private android.view.View detailsview;
     private android.widget.LinearLayout detailsll;
@@ -68,7 +67,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private void initController() {
+    protected void initController() {
         mController = new ProductController(this);
         mController.setListener(this);
     }
@@ -139,9 +138,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(this, "请选择正确的版本", Toast.LENGTH_SHORT).show();
             return;
         }
-
         mController.sendAsyncMessage(IDiyMessage.TOSHOPCAR_ACTION, mDetailId, mBuyCount, mVersion);
-
     }
 
     @Override

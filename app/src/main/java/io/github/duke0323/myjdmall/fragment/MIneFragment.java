@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import io.github.duke0323.myjdmall.Controller.MineController;
 import io.github.duke0323.myjdmall.JDApplication;
 import io.github.duke0323.myjdmall.R;
 import io.github.duke0323.myjdmall.activity.LoginActivity;
+import io.github.duke0323.myjdmall.activity.MyOrderActivity;
 import io.github.duke0323.myjdmall.bean.RLogin;
 import io.github.duke0323.myjdmall.config.IDiyMessage;
 import io.github.duke0323.myjdmall.protocol.IModelChangeListener;
@@ -33,7 +33,7 @@ public class MIneFragment extends BaseFragemnt implements IModelChangeListener, 
     private TextView mWaitPayTv;
     private LinearLayout mWaitReceiveLl;
     private TextView mWaitReceiveTv;
-    private LinearLayout mMimeOrder;
+    private LinearLayout mMineOrder;
     private Button mLogoutBtn;
     private MineController mController;
     private Handler handler = new Handler() {
@@ -43,10 +43,10 @@ public class MIneFragment extends BaseFragemnt implements IModelChangeListener, 
     };
 
     private void handleLogoutResult(Message msg) {
-        if(msg.what==IDiyMessage.DELETE_ACTION_RESULT) {
-            if((Boolean) msg.obj) {
+        if (msg.what == IDiyMessage.DELETE_ACTION_RESULT) {
+            if ((Boolean) msg.obj) {
 
-                ActivityUtils.start(getActivity(), LoginActivity.class,true);
+                ActivityUtils.start(getActivity(), LoginActivity.class, true);
             }
         }
     }
@@ -69,9 +69,11 @@ public class MIneFragment extends BaseFragemnt implements IModelChangeListener, 
     private void initUserInfo() {
         //获取全局变量
         RLogin userInfo = ((JDApplication) getActivity().getApplication()).mUserInfo;
-        if(!TextUtils.isEmpty(userInfo.getUserName())) {
+       if(userInfo!=null) {
+
+
             mUserNameTv.setText(userInfo.getUserName());
-        }
+
         switch (userInfo.getUserLevel()) {
             case 2:
                 mUserLevelTv.setText("铜牌会员");
@@ -89,6 +91,7 @@ public class MIneFragment extends BaseFragemnt implements IModelChangeListener, 
                 mUserLevelTv.setText("注册会员");
                 break;
         }
+       }
         mWaitPayTv.setText(String.valueOf(userInfo.getWaitPayCount()));
         mWaitReceiveTv.setText(String.valueOf(userInfo.getWaitReceiveCount()));
     }
@@ -101,9 +104,10 @@ public class MIneFragment extends BaseFragemnt implements IModelChangeListener, 
         mWaitPayTv = (TextView) getActivity().findViewById(R.id.wait_pay_tv);
         mWaitReceiveLl = (LinearLayout) getActivity().findViewById(R.id.wait_receive_ll);
         mWaitReceiveTv = (TextView) getActivity().findViewById(R.id.wait_receive_tv);
-        mMimeOrder = (LinearLayout) getActivity().findViewById(R.id.mime_order);
+        mMineOrder = (LinearLayout) getActivity().findViewById(R.id.mine_order);
         mLogoutBtn = (Button) getActivity().findViewById(R.id.logout_btn);
         mLogoutBtn.setOnClickListener(this);
+        mMineOrder.setOnClickListener(this);
     }
 
     @Override
@@ -116,6 +120,9 @@ public class MIneFragment extends BaseFragemnt implements IModelChangeListener, 
         switch (v.getId()) {
             case R.id.logout_btn:
                 mController.sendAsyncMessage(IDiyMessage.DELETE_ACTION, 0);
+                break;
+            case R.id.mine_order:
+                ActivityUtils.start(getActivity(), MyOrderActivity.class, false);
                 break;
         }
     }

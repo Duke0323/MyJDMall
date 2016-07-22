@@ -29,6 +29,7 @@ public class MainActivity extends FragmentActivity implements IBottomBarClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         this.topbar = (FrameLayout) findViewById(R.id.top_bar);
         bottom_bar = (BottomBar) findViewById(R.id.bottom_bar);
         if (bottom_bar != null) {
